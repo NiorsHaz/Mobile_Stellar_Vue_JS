@@ -68,9 +68,21 @@ export default {
 
 </script>
 
-<template v-if="!loading">
+<template v-if="loading">
     <section class="List">
         <!-- <div class="product-grid"> -->
+        <div class="product">
+            <div class="item-display" style="background-color: white;">
+                <img src="" alt="">
+            </div>
+            <div class="info">
+                <h1 class="item-name">Lorem Ipsum</h1>
+                <span>Ar {{ formatNumber(1000) }}</span>
+                <section class="category-box">
+                    <p class="category">In Stock: {{ formatNumber(10) }}</p>
+                </section>
+            </div>
+        </div>
         <BoxContainer v-for="product in products" :key="product.id" class="product" @click="openDetail(product)">
             <div class="item-display">
                 <img :src="product.image || '/static-stuff/ride.png'" :alt="product.libelle" />
@@ -82,7 +94,7 @@ export default {
                     <p class="category">In Stock : {{ formatNumber(product.Qtyonhand) }}
                     </p>
                 </div>
-            </div>
+            </div>-->
         </BoxContainer>
 
         <!-- Add invisible placeholders to fill the row -->
@@ -153,8 +165,6 @@ export default {
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     /* background-color: antiquewhite; */
-
-    align-items: center;
     justify-content: center;
 }
 

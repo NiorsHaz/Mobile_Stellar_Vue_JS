@@ -49,10 +49,12 @@ async function handleLogin({ email, password }) {
     window.location.reload();
 }
 // NavBar logic
+// NavBar logic
 const items = [
-    { text: 'Acceuil', href: '/' },
-    { text: 'Boutique', href: '/boutique' },
-    { text: 'DashBoard', href: '/dashboard' },
+    { text: 'A', href: '/' },
+    { text: 'B', href: '/boutique' },
+    { text: 'D', href: '/dashboard' },
+    { text: 'F', href: '/facture' },
 ];
 
 const focusedIndex = ref(null);

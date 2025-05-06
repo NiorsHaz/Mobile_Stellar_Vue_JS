@@ -22,10 +22,10 @@ export default {
     data() {
         return {
             items: [
-                { text: 'Acceuil', href: '/' },
-                { text: 'Boutique', href: '/boutique' },
-                { text: 'DashBoard', href: '/dashboard' },
-                { text: 'Facture', href: '/facture' },
+                { text: 'A', href: '/' },
+                { text: 'B', href: '/boutique' },
+                { text: 'D', href: '/dashboard' },
+                { text: 'F', href: '/facture' },
             ],
             cartItems: {
                 type: Array,
@@ -160,20 +160,29 @@ export default {
         <LoginPopup v-model="showLogin" @login="handleLogin" />
         <header>
             <NavBar style="position: relative; display: flex; justify-content: center; flex-shrink: 0; gap: 30%;">
-                <div style="display: flex; flex-direction: row;">
+                <!--<div style="display: flex; flex-direction: row;">
                     <CustomButton size="small" style="background: none;" @click="handleshowCart()">
                         <template #icon>
                             <img src="/static-stuff/panier.svg" alt="panier" width="48">
                         </template>
-                    </CustomButton>
+</CustomButton>
 
-                    <CustomButton v-if="!username" text="Se Connecter" size="small" @click="showLogin = true" />
-                    <div v-else style="display: flex; flex-direction: row; align-items: center;">
-                        <h1 style="color: #fff;">{{ username }}</h1>
-                        <CustomButton text="Deconnecter" size="small" @click="logout()" />
-                    </div>
-                </div>
-                <span style="display: flex; flex-direction: row; max-width: 400px; gap: 80px;">
+<CustomButton v-if="!username" text="Se Connecter" size="small" @click="showLogin = true" />
+<div v-else style="display: flex; flex-direction: row; align-items: center;">
+    <h1 style="color: #fff;">{{ username }}</h1>
+    <CustomButton text="->" size="small" @click="logout()" />
+</div>
+</div>
+<span style="display: flex; flex-direction: row; max-width: 400px; gap: 80px;">
+    <div v-for="(item, i) in items" :key="i" class="nav-link" :class="{
+                        focused: focusedIndex === i,
+                        blurred: focusedIndex !== null && focusedIndex !== i
+                    }" @mouseenter="focusedIndex = i" @mouseleave="focusedIndex = null">
+        <Link :text="item.text" :to="item.href" />
+    </div>
+</span>-->
+                <span style="display: flex; flex-direction: row; width:100%; gap: 60px;">
+                    <img src="/static-stuff/panier.svg" alt="panier" width="48" @click="handleshowCart()">
                     <div v-for="(item, i) in items" :key="i" class="nav-link" :class="{
                         focused: focusedIndex === i,
                         blurred: focusedIndex !== null && focusedIndex !== i
@@ -183,7 +192,6 @@ export default {
                 </span>
             </NavBar>
         </header>
-
         <main>
             <Popup v-model="showCart">
                 <h1 class="title">Votre Panier</h1>
@@ -208,14 +216,13 @@ export default {
                     <h3 style="color: white; font-size: 24px;">Total: {{ totalPrice }} DA</h3>
                     <CustomButton size="small" text="confirmer" @click="confirmCommande" />
                 </div>
-
             </Popup>
-            <ProductList />
+            <ProductList/>
         </main>
 
-        <footer>
+        <!--<footer>
             <FooterVue />
-        </footer>
+        </footer>-->
     </div>
 </template>
 

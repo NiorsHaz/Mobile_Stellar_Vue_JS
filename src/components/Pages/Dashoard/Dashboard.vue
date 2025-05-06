@@ -80,7 +80,7 @@ onMounted(async () => {
     if (!token) {
         showLogin.value = true;
     }
-    else{
+    else {
         const orders = await bridge.getOrder();
         chartData.value = getProductOrderStats(orders);
         const validorders = getValidOrdersStats(orders);
@@ -103,10 +103,10 @@ async function handleLogin({ email, password }) {
 }
 // NavBar logic
 const items = [
-    { text: 'Acceuil', href: '/' },
-    { text: 'Boutique', href: '/boutique' },
-    { text: 'DashBoard', href: '/dashboard' },
-    { text: 'Facture', href: '/facture' },
+    { text: 'A', href: '/' },
+    { text: 'B', href: '/boutique' },
+    { text: 'D', href: '/dashboard' },
+    { text: 'F', href: '/facture' },
 ];
 
 const focusedIndex = ref(null);
@@ -128,21 +128,29 @@ const handleshowCart = () => {
     <LoginPopup v-model="showLogin" @login="handleLogin" />
     <header>
         <NavBar style="position: relative; display: flex; justify-content: center; flex-shrink: 0; gap: 30%;">
-            <div style="display: flex; flex-direction: row;">
-                <CustomButton size="small" style="background: none;" @click="handleshowCart">
-                    <template #icon>
-                        <img src="/static-stuff/panier.svg" alt="panier" width="48" />
-                    </template>
-                </CustomButton>
+            <!--<div style="display: flex; flex-direction: row;">
+                    <CustomButton size="small" style="background: none;" @click="handleshowCart()">
+                        <template #icon>
+                            <img src="/static-stuff/panier.svg" alt="panier" width="48">
+                        </template>
+</CustomButton>
 
-                <CustomButton v-if="!username" text="Se Connecter" size="small" @click="showLogin = true" />
-                <div v-else style="display: flex; flex-direction: row; align-items: center;">
-                    <h1 style="color: #fff;">{{ username }}</h1>
-                    <CustomButton text="Deconnecter" size="small" @click="logout" />
-                </div>
-            </div>
-
-            <span style="display: flex; flex-direction: row; max-width: 400px; gap: 80px;">
+<CustomButton v-if="!username" text="Se Connecter" size="small" @click="showLogin = true" />
+<div v-else style="display: flex; flex-direction: row; align-items: center;">
+    <h1 style="color: #fff;">{{ username }}</h1>
+    <CustomButton text="->" size="small" @click="logout()" />
+</div>
+</div>
+<span style="display: flex; flex-direction: row; max-width: 400px; gap: 80px;">
+    <div v-for="(item, i) in items" :key="i" class="nav-link" :class="{
+                        focused: focusedIndex === i,
+                        blurred: focusedIndex !== null && focusedIndex !== i
+                    }" @mouseenter="focusedIndex = i" @mouseleave="focusedIndex = null">
+        <Link :text="item.text" :to="item.href" />
+    </div>
+</span>-->
+            <span style="display: flex; flex-direction: row; width:100%; gap: 60px;">
+                <img src="/static-stuff/panier.svg" alt="panier" width="48" @click="handleshowCart()">
                 <div v-for="(item, i) in items" :key="i" class="nav-link" :class="{
                     focused: focusedIndex === i,
                     blurred: focusedIndex !== null && focusedIndex !== i
@@ -156,12 +164,14 @@ const handleshowCart = () => {
     <main>
         <BoxContainer class="chart-container">
             <h1 class="title">Produit totale commander</h1>
-            <ChartComponent v-if="chartData.length" :data="chartData" xKey="ref" yKey="total" chartType="bar" labelText="Quantité Commander" />
+            <ChartComponent v-if="chartData.length" :data="chartData" xKey="ref" yKey="total" chartType="bar"
+                labelText="Quantité Commander" />
         </BoxContainer>
 
         <BoxContainer class="chart-container">
             <h1 class="title">Commande Valider</h1>
-            <ChartComponent v-if="chartData2.length" :data="chartData2" xKey="date" yKey="count" chartType="line" labelText="commandes facturé"/>
+            <ChartComponent v-if="chartData2.length" :data="chartData2" xKey="date" yKey="count" chartType="line"
+                labelText="commandes facturé" />
         </BoxContainer>
     </main>
 

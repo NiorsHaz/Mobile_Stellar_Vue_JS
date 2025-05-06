@@ -9,7 +9,12 @@ export default {
 </script>
 
 <template>
-    <nav class="navbar">
+    <nav class="mobile-navbar">
+       <section class="mobile-navigation">
+            <slot></slot>
+       </section> 
+    </nav>
+    <!--<nav class="navbar">
         <div class="logo">
             <svg xmlns="http://www.w3.org/2000/svg" width="200" height="147" viewBox="0 0 354 147" fill="none">
                 <path
@@ -20,12 +25,20 @@ export default {
         <div class="navigation">
             <slot></slot>
         </div>
-    </nav>
+    </nav>-->
 </template>
 
 <style scoped>
 *{
     z-index: 999;
+}
+.mobile-navbar{
+    position: fixed;
+    flex-direction: row;
+    background-color: rgb(0,0,0, 0.8);
+    top: 90vh;
+    width: 100%;
+    height: 80px;
 }
 .navbar {
     height: 100px;
@@ -46,6 +59,25 @@ export default {
 }
 
 .navigation{
+    /* position: relative; */
+    display: flex;
+
+    font-family: PaperClip;
+    font-size: 24px;
+
+    /* background-color: aqua; */
+    
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    flex-grow: initial;
+
+    gap: 100px;
+
+    /* right: 0; */
+}
+
+.mobile-navigation{
     /* position: relative; */
     display: flex;
 
