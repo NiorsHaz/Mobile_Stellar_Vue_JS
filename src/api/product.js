@@ -6,13 +6,15 @@ export class ProductManager {
     this.products = [];
     this.price = [];
     this.initialized = false;
+    this.page = 1;
+    this.content = 10;
   }
 
   async init() {
     if (this.initialized) return;
-    this.products = await bridge.getProducts();
-    this.price = await bridge.getProductsPrice();
-    this.quantity = await bridge.getProductsQuantity();
+    this.products = await bridge.getProducts(this.page, this.content);
+    this.price = await bridge.getProductsPrice(this.page, this.content);
+    this.quantity = await bridge.getProductsQuantity(this.page, this.content);
     this.initialized = true;
   }
 
@@ -30,7 +32,7 @@ export class ProductManager {
       const quantityEntry = this.quantity.records.find(p => p.M_Product_ID.id === product.id);
       return {
         ...product,
-        PriceList: priceEntry ? priceEntry.PriceList : null,
+        PriceList: priceEntry ? priceEntry.PriceStd : null,
         Qtyonhand: quantityEntry ? quantityEntry.QtyOnHand : null
       };
     });
@@ -42,7 +44,18 @@ export class ProductManager {
   }
 
   async refresh() {
-    this.products = await bridge.getProducts();
+    // this.products = await bridge.getProducts(this.page, this.content);
+    await this.init();
+  }
+
+  async nextPage() {
+    this.page += 1;
+    await this.refresh();
+  }
+
+  async previousPage(){
+    this.page -=1;;
+    await this.refresh();
   }
 }
 

@@ -87,22 +87,14 @@ class Bridge {
     return this.get('orders');
   }
 
-  async getInvoice() {
-    return this.get('invoices');
+  async getProducts(page, content) {
+    return this.get(`models/m_product?$top=${content}&$skip=${(page-1)*content}&$orderby=id`);
   }
-
-  async getOrderBySocid(socid) {
-    return this.get(`orders/orders?socid=${socid}`);
+  async getProductsPrice(page, content) {
+    return this.get(`models/m_productprice$top=${content}&$skip=${(page-1)*content}&$orderby=m_product_id`);
   }
-
-  async getProducts() {
-    return this.get('models/m_product');
-  }
-  async getProductsPrice() {
-    return this.get('models/m_productprice');
-  }
-  async getProductsQuantity(){
-    return this.get('models/m_storageonhand');
+  async getProductsQuantity(page, content){
+    return this.get(`models/m_storageonhand$top=${content}&$skip=${(page-1)*content}&$orderby=m_product_id`);
   }
 
   // async getProduct(id) {
